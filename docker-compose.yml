@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  user-service:
+    build:
+      context: ./user_service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  hotel-service:
+    build:
+      context: ./hotel_service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+
+  booking-service:
+    build:
+      context: ./booking_service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - db
+      - hotel-service
+      - user-service
+
+  notification-service:
+    build:
+      context: ./notification_service
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8084
+    ports:
+      - "8084:8084"
+
+  api-gateway:
+    build:
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8085
+    ports:
+      - "8085:8085"
+    depends_on:
+      - user-service
+      - hotel-service
+      - booking-service
+      - notification-service
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
