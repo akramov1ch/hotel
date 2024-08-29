@@ -11,10 +11,10 @@ import (
 )
 
 var (
-	secretKey = []byte("said1902")
+	secretKey = []byte("vakhaboff")
 )
 
-func CreateToken(req *models.LogInRequest) (string, error) {
+func CreateToken(req *models.LogInRequest) (string, error) {	
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256,
 		jwt.MapClaims{
 			"email":      req.Email,

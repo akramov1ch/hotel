@@ -11,12 +11,12 @@ import (
 
 func sendEmail(to, subject, body string) error {
 	m := gomail.NewMessage()
-	m.SetHeader("From", "saidazimqilichov@gmail.com")
+	m.SetHeader("From", "shaxbozakramovic@gmail.com")
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", subject)
 	m.SetBody("text/plain", body)
 
-	d := gomail.NewDialer("smtp.gmail.com", 587, "saidazimqilichov@gmail.com", "fler dgia ntyz mjoq")
+	d := gomail.NewDialer("smtp.gmail.com", 587, "shaxbozakramovic@gmail.com", "vakhaboff2502")
 
 	if err := d.DialAndSend(m); err != nil {
 		return err
